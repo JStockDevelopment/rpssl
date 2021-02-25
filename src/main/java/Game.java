@@ -6,11 +6,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class Game {
-
+    private static final int TIMES_TO_PLAY = 10000;
     public static void main(String[] args) {
+        System.out.println("Playing rock, paper, scissors, lizard, spock " + String.format("%,d", TIMES_TO_PLAY) + " times. \nPrinting the win percentage");
         Map<GameOption, Integer> wins = new HashMap<>();
         Map<GameOption, Integer> losses = new HashMap<>();
-        for(int i = 0; i < 10000; i++) {
+        for(int i = 0; i < TIMES_TO_PLAY; i++) {
             GameOption playerOne = getGameOption();
             GameOption playerTwo = getGameOption();
             if(playerOne.beats(playerTwo)) {
@@ -22,16 +23,21 @@ public class Game {
                 incrementWinLoss(losses, playerOne);
             }
         }
+
+
+        for(GameOption gameOption : GameOption.values())
+            printWinPercentage(gameOption.name(), wins.get(gameOption), losses.get(gameOption));
+    }
+
+    public static void printWinPercentage(String name, float wins, float losses)
+    {
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
-        for(GameOption gameOption : GameOption.values())
-        {
-            float optionWins = wins.get(gameOption);
-            float optionLosses = losses.get(gameOption);
-            System.out.println(gameOption.name() + ": " + df.format((optionWins / (optionLosses + optionWins)) * 100) + "%");
-        }
+        System.out.println(name + ": " + df.format((wins / (losses + wins)) * 100) + "%");
+
     }
+
 
     public static GameOption getGameOption()
     {
