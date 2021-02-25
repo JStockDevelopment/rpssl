@@ -7,6 +7,7 @@ public class FileDB {
 
     private static final String WINS_DB = "wins.txt";
     private static final String LOSSES_DB = "losses.txt";
+
     public void saveWinsAndLosses(Map<GameOption, Integer> wins, Map<GameOption, Integer> losses)
     {
         writeFile(WINS_DB, wins);

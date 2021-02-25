@@ -40,5 +40,4 @@ public enum GameOption {
     ;
 
     public abstract boolean beats(GameOption gameOption);
-
 }

@@ -29,7 +29,6 @@ public class Game {
             }
         }
 
-
         for(GameOption gameOption : GameOption.values())
             printWinPercentage(gameOption.name(), wins.get(gameOption), losses.get(gameOption));
 
@@ -56,10 +55,5 @@ public class Game {
         Integer currentValue = map.computeIfAbsent(key, t -> 0);
         map.put(key, currentValue + 1);
     }
-
-
-
-
-
 
 }
