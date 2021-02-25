@@ -1,16 +1,21 @@
 package main.java;
 
+import java.io.*;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Game {
     private static final int TIMES_TO_PLAY = 10000;
+
+
     public static void main(String[] args) {
-        System.out.println("Playing rock, paper, scissors, lizard, spock " + String.format("%,d", TIMES_TO_PLAY) + " times. \nPrinting the win percentage");
+        FileDB db = new FileDB();
         Map<GameOption, Integer> wins = new HashMap<>();
         Map<GameOption, Integer> losses = new HashMap<>();
+
+        db.loadWinsAndLossesFromDB(wins, losses);
+
+        System.out.println("Playing rock, paper, scissors, lizard, spock " + String.format("%,d", TIMES_TO_PLAY) + " times. \nPrinting the win percentage");
         for(int i = 0; i < TIMES_TO_PLAY; i++) {
             GameOption playerOne = getGameOption();
             GameOption playerTwo = getGameOption();
@@ -27,6 +32,8 @@ public class Game {
 
         for(GameOption gameOption : GameOption.values())
             printWinPercentage(gameOption.name(), wins.get(gameOption), losses.get(gameOption));
+
+        db.saveWinsAndLosses(wins, losses);
     }
 
     public static void printWinPercentage(String name, float wins, float losses)
@@ -37,7 +44,6 @@ public class Game {
         System.out.println(name + ": " + df.format((wins / (losses + wins)) * 100) + "%");
 
     }
-
 
     public static GameOption getGameOption()
     {
@@ -50,6 +56,10 @@ public class Game {
         Integer currentValue = map.computeIfAbsent(key, t -> 0);
         map.put(key, currentValue + 1);
     }
+
+
+
+
 
 
 }
