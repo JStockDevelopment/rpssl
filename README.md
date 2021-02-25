@@ -10,4 +10,4 @@ The game is set up with a basic Ant build. To run the program
 4. Run the command: `bash runProgram.sh`
 
 
-Wins/Losses for each game option are preserved between program runs.
+Wins/Losses for each game option are preserved between program runs. To reset the program delete the losses.txt and wins.txt files.
